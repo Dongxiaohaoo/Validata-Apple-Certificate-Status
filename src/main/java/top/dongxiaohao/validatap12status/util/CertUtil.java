@@ -43,9 +43,11 @@ public class CertUtil {
                 certStatusDTO.setCertRemainingDays(DateUtil.betweenDay(new Date(), notAfter, false));
             } else {
                 log.error("Invalid certificate type. Not an X.509 certificate.");
+                throw new Exception("Invalid certificate type. Not an X.509 certificate.");
             }
         } else {
             log.error("Certificate not found for the given alias.");
+            throw new Exception("Certificate not found for the given alias.");
         }
 
     }
