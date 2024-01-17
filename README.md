@@ -5,4 +5,4 @@
 - 只包含后端实现，前端自行实现。
 - 核心代码在`src/main/java/top/dongxiaohao/validatap12status/util`中。
 
-![image](https://github.com/Dongxiaohaoo/ValidataP12Status/img/response.png)
+![image](https://github.com/Dongxiaohaoo/ValidataP12Status/blob/master/img/response.png)
