@@ -7,7 +7,7 @@ import lombok.Data;
  * @Date: 2024/1/17 17:37
  */
 @Data
-public class BaseReponse<T> {
+public class BaseResponse<T> {
     private Integer code;
     private String msg;
     private T data;

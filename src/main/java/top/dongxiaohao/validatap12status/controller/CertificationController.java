@@ -7,9 +7,8 @@ import cn.hutool.core.lang.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartFile;
-import top.dongxiaohao.validatap12status.dto.BaseReponse;
+import top.dongxiaohao.validatap12status.dto.BaseResponse;
 import top.dongxiaohao.validatap12status.dto.CertAndMobileprovisionDTO;
 import top.dongxiaohao.validatap12status.dto.CertStatusDTO;
 import top.dongxiaohao.validatap12status.util.CertUtil;
@@ -33,12 +32,12 @@ public class CertificationController {
     private static final Integer RETRY_COUNT = 3;
 
     @PostMapping({"/checkP12"})
-    public BaseReponse<CertStatusDTO> check(MultipartFile cert, String password) throws Exception {
+    public BaseResponse<CertStatusDTO> check(MultipartFile cert, String password) throws Exception {
         Assert.notNull(cert, "file can not be null");
         String p12Str = Base64Encoder.encode(cert.getBytes());
         CertStatusDTO certStatusDTO = OCSPUtil.checkCertStatus(p12Str, password, RETRY_COUNT);
         CertUtil.getCertInfo(p12Str, password, certStatusDTO);
-        BaseReponse<CertStatusDTO> certStatusDTOBaseReponse = new BaseReponse();
+        BaseResponse<CertStatusDTO> certStatusDTOBaseReponse = new BaseResponse();
         certStatusDTOBaseReponse.setCode(200);
         certStatusDTOBaseReponse.setMsg("success");
         certStatusDTOBaseReponse.setData(certStatusDTO);
@@ -46,7 +45,7 @@ public class CertificationController {
     }
 
     @PostMapping({"/checkMobileProvesion"})
-    public BaseReponse<CertAndMobileprovisionDTO> checkMobileProvesion(MultipartFile cert, MultipartFile mobileprovision, String password) throws Exception {
+    public BaseResponse<CertAndMobileprovisionDTO> checkMobileProvesion(MultipartFile cert, MultipartFile mobileprovision, String password) throws Exception {
         Assert.notNull(cert, "cert can not be null");
         Assert.notNull(mobileprovision, "mobileprovision can not be null");
         Assert.notBlank(password, "password can not blank");
@@ -67,7 +66,7 @@ public class CertificationController {
         certAndMobileprovisionDTO.setMobileprovisionExpireTime(expireDateParse);
         certAndMobileprovisionDTO.setMobileprovisionRemainingDays(DateUtil.betweenDay(expireDateParse, new Date(), false));
         certAndMobileprovisionDTO.setIsMatch(Objects.equals(certName, teamName));
-        BaseReponse<CertAndMobileprovisionDTO> response = new BaseReponse();
+        BaseResponse<CertAndMobileprovisionDTO> response = new BaseResponse();
         response.setCode(200);
         response.setMsg("success");
         response.setData(certAndMobileprovisionDTO);
