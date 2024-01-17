@@ -14,13 +14,37 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class CertStatusDTO {
+    /**
+     * 证书状态
+     */
     private Integer status;
+    /**
+     * 证书名称
+     */
     private String certName;
+    /**
+     * 证书序列号
+     */
     private String certSerialNumber;
+    /**
+     * 证书创建时间
+     */
     private String certCreateTime;
+    /**
+     * 证书过期时间
+     */
     private String certExpireTime;
+    /**
+     * 证书吊销时间
+     */
     private String certRevokeTime;
+    /**
+     * 证书吊销原因
+     */
     private Integer certRevokeReason;
+    /**
+     * 证书剩余天数
+     */
     private Long certRemainingDays;
 
 
